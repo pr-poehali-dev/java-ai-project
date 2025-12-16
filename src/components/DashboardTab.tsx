@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface DashboardTabProps {
   metrics: Array<{ label: string; value: string; change: string; trend: string }>;
-  generatedVideos: Array<{ id: number; title: string; duration: string; resolution: string; status: string; thumbnail: string; date: string }>;
+  generatedVideos: Array<{ id: string; title: string; duration: string; resolution: string; status: string; thumbnail: string; date: string; url?: string }>;
   models: Array<{ id: number; name: string; type: string; status: string; accuracy: number; epoch: number; totalEpochs: number }>;
 }
 

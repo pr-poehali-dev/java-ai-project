@@ -17,7 +17,8 @@ interface VideoGenerationTabProps {
   isGenerating: boolean;
   generationProgress: number;
   handleGenerateVideo: () => void;
-  generatedVideos: Array<{ id: number; title: string; duration: string; resolution: string; status: string; thumbnail: string; date: string }>;
+  generatedVideos: Array<{ id: string; title: string; duration: string; resolution: string; status: string; thumbnail: string; date: string; url?: string }>;
+  handleDownloadVideo: (url: string, title: string) => void;
 }
 
 const VideoGenerationTab = ({
@@ -31,6 +32,7 @@ const VideoGenerationTab = ({
   generationProgress,
   handleGenerateVideo,
   generatedVideos,
+  handleDownloadVideo,
 }: VideoGenerationTabProps) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -176,9 +178,19 @@ const VideoGenerationTab = ({
                         <span className="text-xs text-muted-foreground">{video.date}</span>
                       </div>
                     </div>
-                    <Button size="sm" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Icon name="Download" size={16} />
-                    </Button>
+                    {video.url && video.status === 'completed' && (
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDownloadVideo(video.url!, video.title);
+                        }}
+                      >
+                        <Icon name="Download" size={16} />
+                      </Button>
+                    )}
                   </div>
                 </div>
               ))}

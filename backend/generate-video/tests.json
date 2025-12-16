@@ -1,0 +1,43 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS request for CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "bodyMatcher": "exact"
+    },
+    {
+      "name": "Generate video successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "prompt": "Космический корабль летит в космосе",
+        "duration": "5",
+        "resolution": "1080p"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "video_id": "string",
+        "url": "string",
+        "prompt": "string",
+        "status": "completed"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Missing prompt validation",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "duration": "5",
+        "resolution": "1080p"
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "Prompt is required"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
